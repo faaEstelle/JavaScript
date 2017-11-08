@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>猜数字</title>
+</head>
+<body>
+
+<h1 class="game-title">Number guess game</h1>
+<p class="game-introduce">
+  We have selected a random number between 1 and 100. See if you can guess it in 10 turns or less. We'll tell you if
+  your guess was too high or too low.
+</p>
+
+<label>Enter a guess</label>
+<input type="text" class="guess-number">
+<button class="game-submit">Submit guess</button>
+<div class="reset">
+  <p class="previous-guess"></p>
+  <p class="game-sign"></p>
+  <p class="game-result"></p>
+</div>
+
+<!--<button class="game-reset">Start new game</button>-->
+
+</body>
+<script>
+  var randomNumber = Math.floor(Math.random() * 100) + 1
+  var guessNumber = document.querySelector('.guess-number')
+  var gameSubmit = document.querySelector('.game-submit')
+  var previousGuess = document.querySelector('.previous-guess')
+  var gameSign = document.querySelector('.game-sign')
+  var gameResult = document.querySelector('.game-result')
+
+  var guessCount = 1
+  var reSetBtn
+  guessNumber.focus()
+  function CheckGuess () {
+    //内置方法Number()确保输入的是一个数字
+    var userGuess = Number(guessNumber.value)
+    if (guessCount === 1) {
+      previousGuess.textContent = 'Previous guess: '
+    }
+
+    previousGuess.textContent += userGuess + ' '
+
+    if (userGuess === randomNumber) {
+      gameResult.textContent = 'Congratulations! You got it right!'
+      gameResult.style.backgroundColor = 'green'
+      GameOver()
+    } else if (guessCount === 10) {
+      gameResult = '!!!Game Over !!!'
+      GameOver()
+    } else {
+      gameResult.textContent = 'Wrong!!!'
+      gameResult.style.backgroundColor = 'red'
+      if (userGuess > randomNumber) {
+        gameSign.textContent = 'Last guess was too height!'
+      } else {
+        gameSign.textContent = 'Last guess was too low!'
+      }
+
+    }
+
+    guessCount++
+    guessNumber.value = ''
+    guessNumber.focus()
+  }
+
+  function GameOver () {
+
+
+    guessNumber.disabled = true
+    gameSubmit.disabled = true
+
+    reSetBtn = document.createElement('button')
+    reSetBtn.textContent = 'Start new game'
+
+    document.body.appendChild(reSetBtn)
+    reSetBtn.addEventListener('click', ReSetGame)
+
+  }
+
+  function ReSetGame () {
+    guessCount = 1
+
+    var resetP = document.querySelectorAll('.reset p')
+    for (var i = 0,max = resetP.length;i<max;i++){
+      resetP[i].textContent = ''
+    }
+
+    gameResult.style.backgroundColor = 'white'
+
+    randomNumber = Math.floor(Math.random() * 100) + 1
+
+    reSetBtn.parentNode.removeChild(reSetBtn)
+
+    guessNumber.disabled = false
+    gameSubmit.disabled = false
+
+    guessNumber.focus()
+  }
+  gameSubmit.addEventListener('click', CheckGuess)
+
+
+
+
+</script>
+</html>
