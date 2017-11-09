@@ -1,0 +1,34 @@
+步骤
+1.需求分析
+    1】支持图片预加载
+    2】支持两种动画播放方式（backgroundImage、backgroundPosition），自定义每帧动画
+    3】支持动画可以循环多次 （包括无限次）
+    4】支持一组动画完成后，切换下一种动画
+    5】支持每个动画完成后有等待时间
+    6】支持动画的暂停和播放
+    7】支持动画完成后执行回调函数
+2.接口编程
+    1】loadImage(imgList) //预加载图片（多张）
+    2】changePosition(ele,positions,imgUrl) //通过改变元素的background-position来实现动画
+    3】changeImageSrc(ele,imgList)  //通过改变image的src实现帧动画
+    4】enterFrame(callback) //每一帧动画执行的函数，相当于用户可以定义每帧动画的callback
+    5】repeat(times) //循环的次数
+    6】repeatForever() //无限循环
+    7】wait(time) //等待时间
+    8】then(callback) //动画执行完之后的回调函数
+    9】start(interval) //开始动画 interval表示动画执行的时间间隔
+    10】pause() //动画暂停
+    11】restart() //动画重启
+    12】dispose() //释放资源
+3.调用方式
+    1】支持链式调用，以动词的方式描述各种接口，如下所示
+        var animation = require('animation')
+        var domeAnimation = animation().loadImage(imgList).changeImageSrc(ele,imgList).repeat(2).then(function(){//动画执行完后的回调函数})
+        domeAnimation.start(80) //开始动画
+4.代码设计
+    1】任务链（数组）：图片加载->动画开始->动画结束
+        任务链有两种类型的任务：a:同步执行完毕的；b:异步定时执行的；
+    2】记录当前任务链的索引
+    3】每个任务执行完毕后，通过调用next执行下一个任务，同时更新任务链的索引值
+
+
