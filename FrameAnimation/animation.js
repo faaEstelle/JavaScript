@@ -1,11 +1,18 @@
 'use strict'
-//记录动画各个步骤的状态的变量
+
+var loadImage = require('./ImageLoader')
+
+//Animation的状态管理， 记录动画各个步骤的状态的变量
 //初始化状态，
 var STATE_INITIAL = 0
 //开始状态
 var STATE_START = 1
 //停止状态
 var STATE_STOP = 2
+//同步任务
+var TASK_SYNC = 0
+//异步任务
+var TASK_ASYNC = 1
 
 /**
  * 帧动画库类
@@ -19,11 +26,16 @@ function Animation () {
 
 /**
  * Animation类的扩展：
- * 添加一个同步任务：提前加载图片
+ * 添加一个同步任务：预加载图片
  * @param imgList 图片数组
  */
 Animation.prototype.loadImage = function (imgList) {
-  
+  var taskFu = function (next) {
+    loadImage(imgList.slice(0),next,)
+  }
+  var type = TASK_SYNC
+  return this._add(taskFu,type)
+
 }
 /**
  * 添加一个异步定时任务：通过定时改变图片位置实现帧动画
@@ -63,6 +75,17 @@ Animation.prototype.then = function (callback) {
  */
 Animation.prototype.start = function (interval) {
 
+  if(this.state === STATE_START){
+    return this
+  }
+  //如果任务链中没有任务，则返回
+  if (!this.taskQueue.length){
+    return this
+  }
+  this.state = STATE_START
+  this.interval = interval
+  this._runTask()
+  return this
 }
 /**
  *添加一个同步任务，回退到上一个任务中
@@ -102,4 +125,71 @@ Animation.prototype.restart = function () {
  */
 Animation.prototype.dispose = function () {
 
+}
+/**
+ * 私有方法，类的内部使用
+ * @param taskFun 任务方法
+ * @param type 任务类型
+ * @private
+ */
+Animation.prototype._add = function (taskFun,type) {
+
+  this.taskQueue.push({
+    taskFun:taskFun,
+    type:type
+  })
+  //将操作后的this返回：此函数的执行结果还能继续执行当前类的方法，以这种方式达到链式调用的目的
+  return this
+}
+/**
+ * 执行任务
+ * @private
+ */
+Animation.prototype._runTask = function () {
+  if(!this.taskQueue.length || this.state !== STATE_START){
+    return
+  }
+  //任务执行完毕，则释放资源
+  if (this.index === this.taskQueue.length){
+    this.dispose()
+    return
+  }
+  //获得任务链上当前任务
+  var task = this.taskQueue[this.index]
+  if(task.type === TASK_SYNC){
+    this._syncTask(task)
+  }else if(task.type === TASK_ASYNC){
+    this._asyncTask(task)
+  }
+  
+}
+
+/**
+ * 同步任务
+ * @param task  执行的任务对象
+ */
+Animation.prototype._syncTask = function (task) {
+  var $this = this //在闭包中this指向发生变化，提前赋值
+  var next = function () {
+    //切换到下一个任务
+    $this._next()
+  }
+  var taskFn = task.taskFun
+  taskFn(next)
+}
+/**
+ * 异步任务
+ * @param task 执行的任务对象
+ * @private
+ */
+Animation.prototype._asyncTask = function (task) {
+
+}
+/**
+ * 切换到下一个任务
+ * @private
+ */
+Animation.prototype._next = function () {
+  this.index++
+  this._runTask()
 }
