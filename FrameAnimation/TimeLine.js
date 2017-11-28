@@ -1,5 +1,4 @@
-
-//requestAnimationFrame有兼容性问题
+//requestAnimationFrame有兼容性问题，每17毫秒回调一次
 var DEFAULT_INTERVAL = 1000 / 60
 var requestAnimationFrame = (function () {
   return window.requestAnimationFrame ||
@@ -33,8 +32,9 @@ var STATE_STOP = 2
  * @constructor
  */
 function TimeLine () {
-  this.animationHandler = 0;
+  this.animationHandler = 0
   this.state = STATE_INITAL
+
 }
 
 /**
@@ -62,12 +62,29 @@ TimeLine.prototype.start = function (interval) {
  */
 TimeLine.prototype.stop = function () {
 
+  if (this.state !== STATE_START) {
+    return
+  }
+  this.state = STATE_STOP
+  //若动画开始过，则记录动画开始到现在所经历的时间
+  if (this.startTime) {
+    this.dur = +new Date() - this.startTime
+  }
+  cancelAnimationFrame(this.animationHandler)
 }
 /**
  * 重新开始动画
  */
 TimeLine.prototype.restart = function () {
-
+  if (this.state === STATE_START) {
+    return
+  }
+  if (!this.dur || !this.interval) {
+    return
+  }
+  this.state = STATE_START
+  //无缝连接动画
+  startTimeLine(this, +new Date() - this.dur)
 }
 
 /**
@@ -82,11 +99,21 @@ function startTimeLine (timeLine,startTime) {
   var lastTick = +new Date()
   /**
    * 每一帧执行的函数
+   *
+   * 重新封装requestAnimationFrame
    */
   function nextTick () {
     var now = +new Date()
     timeLine.animationHandler = requestAnimationFrame(nextTick)
+    //若当前时间与上一次回调的时间戳大于设置的时间戳
+    //表示此次执行可以调用回调函数
+    if (now - lastTick >= timeLine.interval) {
+      timeLine.onenterfram(now - startTime)
+      lastTick = now
+    }
   }
 
 
 }
+
+module.exports = TimeLine

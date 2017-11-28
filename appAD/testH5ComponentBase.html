@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>基本图文组件测试</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #000;
+      font-size: 12px;
+    }
+
+    .iphone {
+      width: 340px;
+      height: 540px;
+      position: absolute;
+      left: calc(50% - 170px);
+      top: calc(50% - 270px);
+      background-color: #fff;
+    }
+
+    .h5_component_base {
+      /*动画过渡效果*/
+      transition: all 1s;
+    }
+
+
+  </style>
+  <script type="text/javascript" src="./js/lib/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/H5ComponentBase.js"></script>
+  <link type="text/css" href="./css/H5ComponentBase.css" rel="stylesheet">
+</head>
+<body>
+<div class="iphone"></div>
+<script type="text/javascript">
+  var cfg = {
+    type: 'base',
+    text: 'text',
+    width: 100,
+    height: 100,
+//    bg:'./img/',图片
+    css: {
+      left: 50,
+      top: 50,
+      opacity: 0
+    },
+    //出现消失
+    animationIn: {top: 50, opacity: 1},
+    animationOut: {top: 150, opacity: 0},
+    center: true
+  }
+  var H5 = new H5ComponentBase('myName', cfg)
+  $('.iphone').append(H5)
+</script>
+</body>
+</html>

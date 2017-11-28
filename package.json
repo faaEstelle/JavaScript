@@ -1,0 +1,7 @@
+{
+  "name": "JavaScript",
+  "version": "0.0.1",
+  "dependencies": {
+    "webpack": "^3.5.5"
+  }
+}

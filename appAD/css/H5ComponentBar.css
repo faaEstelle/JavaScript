@@ -1,0 +1,50 @@
+/*柱状图组件样式*/
+.h5_component_bar .line {
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.h5_component_bar .name {
+  width: 25%;
+  text-align: center;
+}
+
+.h5_component_bar .progress {
+  width: 75%;
+}
+
+.h5_component_bar .progress .bg {
+  width: 0%;
+  height: 20px;
+  vertical-align: bottom;
+  transition: all 1s .5s;
+  background-color: aquamarine;
+}
+
+.h5_component_bar_load .progress .bg {
+  width: 100%;
+}
+
+.h5_component_bar_leave .progress .bg {
+  width: 0%;
+}
+
+.h5_component_bar .progress .per {
+  opacity: 0;
+  transition: all 1s 1.5s;
+  margin-left: 5px;
+}
+
+.h5_component_bar_load .progress .per {
+  opacity: 1
+}
+
+.h5_component_bar_leave .progress .per {
+  opacity: 0
+}
+
+.h5_component_bar .line div {
+  display: inline-block;
+}

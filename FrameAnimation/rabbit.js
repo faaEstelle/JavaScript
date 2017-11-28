@@ -25,7 +25,7 @@ function animation (ele, positions, imgUrl) {
     if (index >= positions.length) {
       index = 0
     }
-    setTimeout(run, 80)
+    setTimeout(run, 40)
   }
 
   run()

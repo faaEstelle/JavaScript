@@ -1,0 +1,60 @@
+/*垂直柱状图组件样式*/
+.h5_component_bar_V .line {
+  width: 60px;
+  display: inline-block;
+  height: 100%;
+  text-align: center;
+  font-size: 12px;
+  position: relative;
+}
+
+.h5_component_bar_V .name {
+  height: 20px;
+}
+
+.h5_component_bar_V .progress {
+  height: calc(100% - 20px);
+  position: relative;
+  width: 100%;
+}
+
+.h5_component_bar_V .progress-bar {
+  position: absolute;
+  left: 35%;
+  bottom: 0;
+  width: 30%;
+
+}
+
+.h5_component_bar_V .progress-bar .bg {
+  width: 100%;
+  height: 0;
+  background-color: aqua;
+  transition: all 1s .5s;
+  position: absolute;
+  bottom: 0;
+}
+
+.h5_component_bar_V_load .progress-bar .bg {
+  height: 100%;
+}
+
+.h5_component_bar_V_leave .progress-bar .bg {
+  height: 0;
+}
+
+.h5_component_bar_V .progress .per {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transition: all 1s 1.5s;
+  opacity: 0;
+}
+
+.h5_component_bar_V_load .progress .per {
+  opacity: 1;
+}
+
+.h5_component_bar_V_leave .progress .per {
+  opacity: 0;
+}
