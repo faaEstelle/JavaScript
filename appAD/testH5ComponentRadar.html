@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>折线图组件测试</title>
+  <title>雷达图组件测试</title>
   <style>
     body {
       padding: 0;
@@ -27,20 +27,20 @@
   </style>
   <script type="text/javascript" src="./js/lib/jquery-1.8.3.min.js"></script>
   <script type="text/javascript" src="./js/H5ComponentBase.js"></script>
-  <script type="text/javascript" src="js/H5ComponentPolyLine.js"></script>
+  <script type="text/javascript" src="js/H5ComponentRadar.js"></script>
   <link type="text/css" href="./css/H5ComponentBase.css" rel="stylesheet">
-  <link type="text/css" href="css/H5ComponentPolyLine.css" rel="stylesheet">
+  <link type="text/css" href="css/H5ComponentRadar.css" rel="stylesheet">
 </head>
 <body>
 <div class="iphone"></div>
 <script type="text/javascript">
 
   var cfg = {
-    type: 'polyLine',
+    type: 'radar',
     width: 600,
-    height: 500,
+    height: 600,
     css: {
-      top: '40%',
+      top: '20%',
       left: 0,
 //      opacity: 0
     },
@@ -51,12 +51,12 @@
       ['Bootstrap', .2],
       ['Vue', .08]
     ],
-    animationIn: {opacity: 1},
-    animationOut: {opacity: 0},
+//    animationIn: { opacity: 1},
+//    animationOut: { opacity: 0},
     center: true
   }
-  var H5_PolyLine = new H5ComponentPolyLine('myName', cfg)
-  $('.iphone').append(H5_PolyLine)
+  var H5_Radar = new H5ComponentRadar('myName', cfg)
+  $('.iphone').append(H5_Radar)
   var leave = true
 
   $('body').click(function () {
