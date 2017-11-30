@@ -41,6 +41,7 @@ var H5ComponentRadar = function (name, cfg) {
     var text = $('<div class="text"></div>')
     text.css('transition', 'all 1s ' + i * .5 + 's')//使项目名依次出现
     text.text(item[0])
+    text.append('<div class="per">' + item[1] * 100 + '%' + '</div>')
     if (x > r) {
       text.css('left', x / 2)
     } else {
@@ -95,7 +96,6 @@ var H5ComponentRadar = function (name, cfg) {
       ctx.strokeStyle = '#ff51d6'
       ctx.arc(x, y, 5, 0, 2 * Math.PI)
       ctx.stroke() //绘制
-      ctx.fillText(item[1], x, y)
     }
   }
 

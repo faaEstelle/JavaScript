@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>饼图组件测试</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #000;
+      font-size: 12px;
+    }
+
+    .iphone {
+      width: 340px;
+      height: 540px;
+      position: absolute;
+      left: calc(50% - 170px);
+      top: calc(50% - 270px);
+      background-color: #fff;
+    }
+
+    .h5_component_base {
+      /*动画过渡效果*/
+      transition: all 1s;
+    }
+  </style>
+  <script type="text/javascript" src="./js/lib/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/H5ComponentBase.js"></script>
+  <script type="text/javascript" src="js/H5ComponentPie.js"></script>
+  <link type="text/css" href="./css/H5ComponentBase.css" rel="stylesheet">
+  <link type="text/css" href="css/H5ComponentPie.css" rel="stylesheet">
+</head>
+<body>
+<div class="iphone"></div>
+<script type="text/javascript">
+
+  var cfg = {
+    type: 'pie',
+    width: 400,
+    height: 400,
+    css: {
+      top: '20%',
+      left: 0,
+//      opacity: 0
+    },
+    data: [
+      ['JavaScript', .35, 'red'],
+      ['Html', .15, 'blue'],
+      ['CSS', .12, '#222'],
+      ['Bootstrap', .25, '#59FF24'],
+      ['Vue', .13, '#FF85F8'],
+    ],
+//    animationIn: {opacity: 1},
+//    animationOut: {opacity: 0},
+    center: true
+  }
+  var H5_Pie = new H5ComponentPie('myName', cfg)
+  $('.iphone').append(H5_Pie)
+  var leave = true
+
+  $('body').click(function () {
+    leave = !leave
+    $('.h5_component').trigger(leave ? 'onLeave' : 'onLoad')
+  })
+
+</script>
+</body>
+</html>

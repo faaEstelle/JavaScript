@@ -1,27 +1,26 @@
 /*折线图组件样式*/
-.h5_component_radar canvas {
+.h5_component_pie canvas {
   width: 100%;
   height: 100%;
-  /*background-color: #dddddd;*/
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.h5_component_radar .text {
+.h5_component_pie .text {
   position: absolute;
   font-size: 12px;
-  transform: scale(.8);
+  /*transform: scale(.8);*/
   text-align: center;
   line-height: 18px;
-  opacity: 0;
+  /*opacity: 0;*/
   /*transition: all 1s 1s;*/
 }
 
-.h5_component_radar_load .text {
+.h5_component_pie_load .text {
   opacity: 1;
 }
 
-.h5_component_radar_leave .text {
+.h5_component_pie_leave .text {
   opacity: 0;
 }
