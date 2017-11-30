@@ -11,11 +11,11 @@
 .h5_component_radar .text {
   position: absolute;
   font-size: 12px;
-  transform: scale(.8);
+  /*transform: scale(.8);*/
   text-align: center;
   line-height: 18px;
   opacity: 0;
-  transition: all 1s 1s;
+  /*transition: all 1s 1s;*/
 }
 
 .h5_component_radar_load .text {

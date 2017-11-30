@@ -37,22 +37,23 @@
 
   var cfg = {
     type: 'radar',
-    width: 600,
-    height: 600,
+    width: 500,
+    height: 500,
     css: {
       top: '20%',
       left: 0,
-//      opacity: 0
+      opacity: 0
     },
     data: [
       ['JavaScript', .6, 'red'],
       ['Html', .4],
       ['CSS', .5],
-      ['Bootstrap', .2],
-      ['Vue', .08]
+      ['Bootstrap', .3],
+      ['Vue', .25],
+      ['AngularJS', .35]
     ],
-//    animationIn: { opacity: 1},
-//    animationOut: { opacity: 0},
+    animationIn: {opacity: 1},
+    animationOut: {opacity: 0},
     center: true
   }
   var H5_Radar = new H5ComponentRadar('myName', cfg)
